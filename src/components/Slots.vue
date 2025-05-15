@@ -11,10 +11,24 @@ import SlotWrapper from "./SlotWrapper.vue";
 import DateSVG from "./svgs/DateSVG.vue";
 import { SSEUrl } from "../constants/APIS";
 import Spinner from "./Spinner.vue";
+import { useToasterStore } from "../store/useToasterStore";
 
 const { data: slots, loading } = useGetSlots();
+const toastStore = useToasterStore();
+
+const handleSSEMessage = (event: MessageEvent) => {
+  const notification = JSON.parse(event.data);
+  console.log(notification);
+  toastStore.update(
+    {
+      text: `slot number : ${notification.id} is updated `,
+    },
+    notification.category
+  );
+};
 
 const { data } = useEventSource(SSEUrl, {
+  onMessage: handleSSEMessage,
   onOpen: (event: Event) => console.log("SSE connection established", event),
   onError: (event: Event) => console.error("SSE connection error:", event),
   autoReconnect: true,
