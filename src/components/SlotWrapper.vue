@@ -6,24 +6,34 @@
  */
 import { ref, watch, computed } from "vue";
 import Slot from "./Slot.vue";
-import { type SlotType, type DataType } from "../types";
+import { type SlotType, type DataType, type DropdownItems } from "../types";
 
 const props = defineProps<{
   slots: SlotType[];
   data?: DataType | null;
   searchTerm?: string;
-  limit?: "yellow" | "red" | "green" | "all" | null;
+  limit?: DropdownItems;
 }>();
 
 const allSlots = ref<SlotType[]>([...props.slots]);
 
-const filteredSlots = computed(() => {
-  if (!props.searchTerm) {
+const limitedSlots = computed(() => {
+  if (!props.limit || props.limit === "all") {
     return allSlots.value;
   }
 
-  const term = props.searchTerm.toLowerCase();
   return allSlots.value.filter(
+    (item) => item.category === props.limit?.toLowerCase()
+  );
+});
+
+const filteredSlots = computed(() => {
+  if (!props.searchTerm) {
+    return limitedSlots.value;
+  }
+
+  const term = props.searchTerm.toLowerCase();
+  return limitedSlots.value.filter(
     (item) =>
       item.category?.toLowerCase().includes(term) ||
       item.instructor?.toLowerCase().includes(term) ||
@@ -57,7 +67,7 @@ watch(
 
 <template>
   <div
-    v-if="allSlots.length"
+    v-if="filteredSlots.length"
     class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
   >
     <div v-for="slot in filteredSlots" :key="slot.id">

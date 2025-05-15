@@ -70,7 +70,12 @@ const handleFormaDate = (dateSring: string) => {
         <DateSVG />
         {{ handleFormaDate(date) }}
       </h2>
-      <SlotWrapper :slots="sortedSlots" :data="data" :searchTerm="searchTerm" />
+      <SlotWrapper
+        :slots="sortedSlots"
+        :data="data"
+        :searchTerm="searchTerm"
+        :limit="limitOnCategory"
+      />
     </div>
   </div>
 </template>
