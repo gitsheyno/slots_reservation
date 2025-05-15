@@ -6,7 +6,7 @@ const model = defineModel();
 </script>
 
 <template>
-  <div class="relative flex-1">
+  <div class="relative w-[100%] md:flex-1">
     <div
       class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
     >
