@@ -53,10 +53,12 @@ const handleFormaDate = (dateSring: string) => {
     <Spinner />
   </div>
   <div v-else>
-    <div class="mb-6 relative">
-      <div class="w-[50%] flex flex-col gap-4 md:flex-row">
+    <div class="mt-12 md:mt-0 mb-6 relative">
+      <div
+        class="w-full md:w-[50%] flex flex-col items-center gap-4 md:flex-row"
+      >
         <Input v-model="searchTerm" />
-        <div>
+        <div class="w-[100%] md:w-[170px]">
           <Dropdown
             v-model="limitOnCategory"
             :options="categoryOptions"

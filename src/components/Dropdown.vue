@@ -2,8 +2,9 @@
 /**
  * Custom Dropdown Component to limit the Slots based on category
  */
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { type DropdownItems } from "../types";
+import { onUnmounted } from "vue";
 
 const props = defineProps<{
   options: { value: string; label: string }[];
@@ -33,6 +34,19 @@ const handleSelectOption = (option: DropdownItems) => {
   model.value = option;
   isOpen.value = false;
 };
+
+const handleClickOutside = (event: MouseEvent) => {
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node)) {
+    isOpen.value = false;
+  }
+};
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 <template>
   <div ref="dropdownRef" class="relative">
@@ -42,21 +56,6 @@ const handleSelectOption = (option: DropdownItems) => {
       class="flex items-center justify-between w-full bg-white border-2 border-indigo-300 hover:border-indigo-400 rounded-lg px-4 py-2.5 text-gray-700 font-medium leading-tight cursor-pointer shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
     >
       <div class="flex items-center">
-        <svg
-          class="h-5 w-5 text-indigo-500 mr-2"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            d="M2 6a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-          />
-          <path
-            fill-rule="evenodd"
-            d="M10 10a2 2 0 100-4 2 2 0 000 4z"
-            clip-rule="evenodd"
-          />
-        </svg>
         <span>{{ handleSelectedLabel }}</span>
       </div>
       <svg
