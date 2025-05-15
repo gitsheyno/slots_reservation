@@ -9,7 +9,7 @@ import { computed } from "vue";
 const props = defineProps<{
   capacity: number;
   maxCapacity: number;
-  currentCategory: string;
+  currentCategory: "red" | "green" | "yellow";
 }>();
 
 const handleCapacityProgress = computed(() => {

@@ -51,7 +51,7 @@ watch(
       if (item.id === newData.id) {
         return {
           ...item,
-          category: newData.category,
+          category: newData.category as "red" | "green" | "yellow",
           capacity: {
             ...item.capacity,
             current_capacity: newData.currentCapacity,

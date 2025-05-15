@@ -4,9 +4,9 @@ import { type ToastStatus } from "../types";
 const toastStore = useToasterStore();
 
 const toastColor: Record<ToastStatus, string> = {
-  red: "bg-red-500",
-  yellow: "bg-yellow-500",
-  green: "bg-green-500",
+  red: "bg-red-500 border-red-600",
+  yellow: "bg-yellow-500 border-yellow-600",
+  green: "bg-green-500 border-green-600",
 };
 </script>
 
@@ -15,7 +15,7 @@ const toastColor: Record<ToastStatus, string> = {
     <TransitionGroup
       tag="ul"
       v-if="toastStore.toasts.length"
-      class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-72 max-w-full pointer-events-none"
+      class="fixed top-4 right-4 z-50 flex flex-col gap-3 w-80 max-w-full pointer-events-none"
       enter-active-class="transition ease-out duration-300"
       enter-from-class="transform opacity-0 translate-x-8"
       enter-to-class="transform opacity-100 translate-x-0"
@@ -27,9 +27,11 @@ const toastColor: Record<ToastStatus, string> = {
         v-for="toast in toastStore.toasts"
         :key="toast.id"
         :class="[
-          'rounded-lg shadow-lg py-3 px-4 text-white',
-          'flex items-center justify-between',
+          'rounded-lg shadow-xl py-3 px-4 text-white',
+          'flex items-center',
+          'border-l-4',
           toastColor[toast.status],
+          'backdrop-blur-sm bg-opacity-95',
         ]"
       >
         <span class="text-sm font-medium">
