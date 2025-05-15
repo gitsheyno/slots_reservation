@@ -14,8 +14,12 @@ import { SSEUrl } from "../constants/APIS";
 import Spinner from "./Spinner.vue";
 import { useToasterStore } from "../store/useToasterStore";
 import Input from "./Input.vue";
+import Dropdown from "./Dropdown.vue";
+import { type DropdownItems } from "../types";
+import { categoryOptions } from "../constants/categoryOptions";
 
 const searchTerm = ref("");
+const limitOnCategory = ref<DropdownItems>("all");
 
 const toastStore = useToasterStore();
 const { data: slots, loading } = useGetSlots();
@@ -53,11 +57,11 @@ const handleFormaDate = (dateSring: string) => {
       <div class="w-[50%] flex flex-col gap-4 md:flex-row">
         <Input v-model="searchTerm" />
         <div>
-          <!-- <Dropdown
+          <Dropdown
             v-model="limitOnCategory"
             :options="categoryOptions"
             placeholder="Filter by category"
-          /> -->
+          />
         </div>
       </div>
     </div>
