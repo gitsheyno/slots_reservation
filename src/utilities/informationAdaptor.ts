@@ -1,7 +1,5 @@
 import { extraSlotDetails } from "../constants/slotDetails";
-
 import { type SlotType } from "../types";
-
 /**
  * It injects adtional information like instructor and location to slots
  */
