@@ -2,7 +2,7 @@ import { ref, onMounted } from "vue";
 import { type SlotType } from "../types";
 import { enrichSlots } from "../utilities/informationAdaptor";
 import { grouping } from "../utilities/groupingAdaptor";
-
+import { url } from "../constants/APIS";
 /**
  * A composable funtion that gets the slots from a remote API
  * It injects additional info to slots like instructor and location
@@ -18,9 +18,7 @@ export const useGetSlots = () => {
     error.value = null;
 
     try {
-      const response = await fetch(
-        "https://timeslot-stream-ha2tva3niq-ey.a.run.app/timeSlots"
-      );
+      const response = await fetch(url);
       const result: SlotType[] = await response.json();
 
       const enrichedslots = enrichSlots(result);
