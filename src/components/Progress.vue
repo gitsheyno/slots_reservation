@@ -7,7 +7,7 @@ import { computed } from "vue";
 import { handleColor } from "../utilities/handleColor";
 const props = defineProps<{
   percentage: number;
-  currentCategory: string;
+  currentCategory: "red" | "green" | "yellow";
 }>();
 
 const handleCapacityBackground = computed(() => {
