@@ -1,12 +1,12 @@
 // CapacityBar.test.ts - Unit Tests
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
-import CapacityBar from "../Progress.vue";
+import Progress from "../Progress.vue";
 
-describe("CapacityBar", () => {
+describe("Progress", () => {
   describe("handleCapacityBackground computed property", () => {
     it("returns correct background class based on currentCategory", () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 50,
           currentCategory: "red",
@@ -18,7 +18,7 @@ describe("CapacityBar", () => {
 
   describe("CapacityBar component rendering", () => {
     it("renders with correct width based on percentage prop", () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 75,
           currentCategory: "green",
@@ -30,7 +30,7 @@ describe("CapacityBar", () => {
     });
 
     it("applies correct background class based on currentCategory", () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 25,
           currentCategory: "yellow",
@@ -42,7 +42,7 @@ describe("CapacityBar", () => {
     });
 
     it("applies transition classes for animation", () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 50,
           currentCategory: "green",
@@ -58,7 +58,7 @@ describe("CapacityBar", () => {
 
   describe("CapacityBar reactivity", () => {
     it("updates width when percentage prop changes", async () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 30,
           currentCategory: "green",
@@ -72,7 +72,7 @@ describe("CapacityBar", () => {
     });
 
     it("updates background class when currentCategory prop changes", async () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 50,
           currentCategory: "green",
@@ -89,7 +89,7 @@ describe("CapacityBar", () => {
 
   describe("CapacityBar edge cases", () => {
     it("handles 0% correctly", () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 0,
           currentCategory: "green",
@@ -100,7 +100,7 @@ describe("CapacityBar", () => {
     });
 
     it("handles 100% correctly", () => {
-      const wrapper = mount(CapacityBar, {
+      const wrapper = mount(Progress, {
         props: {
           percentage: 100,
           currentCategory: "green",
