@@ -9,5 +9,4 @@ export interface SlotType {
   };
   location?: string;
   instructor?: string;
-  description?: string;
 }

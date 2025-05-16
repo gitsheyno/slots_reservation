@@ -37,8 +37,7 @@ const filteredSlots = computed(() => {
     (item) =>
       item.category?.toLowerCase().includes(term) ||
       item.instructor?.toLowerCase().includes(term) ||
-      item.location?.toLowerCase().includes(term) ||
-      item.description?.toLowerCase().includes(term)
+      item.location?.toLowerCase().includes(term)
   );
 });
 
