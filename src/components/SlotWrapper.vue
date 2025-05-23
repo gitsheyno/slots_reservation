@@ -15,14 +15,45 @@ const props = defineProps<{
   limit?: DropdownItems;
 }>();
 
-const allSlots = ref<SlotType[]>([...props.slots]);
+const allSlots = computed(() => {
+  return [...props.slots];
+});
+
+const allUpdates = ref<Map<number, DataType>>(new Map());
+
+watch(
+  () => props.data,
+  (newData) => {
+    if (!newData) return;
+
+    allUpdates.value.set(newData.id, newData);
+  },
+  { immediate: true }
+);
+
+const allSlotsWithUpdates = computed<SlotType[]>(() => {
+  return allSlots.value.map((item) => {
+    const update = allUpdates.value.get(item.id);
+    if (update) {
+      return {
+        ...item,
+        category: update.category as "red" | "green" | "yellow",
+        capacity: {
+          ...item.capacity,
+          current_capacity: update.currentCapacity,
+        },
+      };
+    }
+    return item;
+  });
+});
 
 const limitedSlots = computed(() => {
   if (!props.limit || props.limit === "all") {
-    return allSlots.value;
+    return allSlotsWithUpdates.value;
   }
 
-  return allSlots.value.filter(
+  return allSlotsWithUpdates.value.filter(
     (item) => item.category === props.limit?.toLowerCase()
   );
 });
@@ -40,28 +71,6 @@ const filteredSlots = computed(() => {
       item.location?.toLowerCase().includes(term)
   );
 });
-
-watch(
-  () => props.data,
-  (newData) => {
-    if (!newData) return;
-
-    allSlots.value = allSlots.value.map((item) => {
-      if (item.id === newData.id) {
-        return {
-          ...item,
-          category: newData.category as "red" | "green" | "yellow",
-          capacity: {
-            ...item.capacity,
-            current_capacity: newData.currentCapacity,
-          },
-        };
-      }
-      return item;
-    });
-  },
-  { immediate: true }
-);
 </script>
 
 <template>
