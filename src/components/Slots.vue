@@ -17,6 +17,7 @@ import Input from "./Input.vue";
 import Dropdown from "./Dropdown.vue";
 import { type DropdownItems } from "../types";
 import { categoryOptions } from "../constants/categoryOptions";
+import { VPagination } from "vuetify/components";
 
 const searchTerm = ref("");
 const limitOnCategory = ref<DropdownItems>("all");
@@ -92,7 +93,7 @@ const HandlePrevPage = () => {
         </div>
       </div>
     </div>
-    <div v-if="visibleSlots" class="mb-10">
+    <div v-if="visibleSlots" class="flex-1 min-h-0 mb-10">
       <h2 class="text-2xl font-semibold mb-4 text-indigo-800 flex items-center">
         <DateSVG />
         {{ handleFormaDate(visibleSlots[0]) }}
@@ -107,9 +108,30 @@ const HandlePrevPage = () => {
         :limit="limitOnCategory"
       />
     </div>
+    <div class="flex items-center justify-center">
+      <button
+        @click="HandlePrevPage"
+        :disabled="currentPage === 1"
+        class="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      >
+        Previous
+      </button>
 
-    <button @click="HandleNextPage">Next</button>
-    <button @click="HandlePrevPage">Prev</button>
-    {{ currentPage }}
+      <v-pagination
+        v-model="currentPage"
+        :length="allPagesLength"
+        :total-visible="7"
+        color="indigo-darken-3"
+        class="my-2"
+      ></v-pagination>
+
+      <button
+        @click="HandleNextPage"
+        :disabled="currentPage === allPagesLength"
+        class="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      >
+        Next
+      </button>
+    </div>
   </div>
 </template>
