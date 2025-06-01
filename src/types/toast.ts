@@ -1,4 +1,6 @@
-export type ToastStatus = "red" | "yellow" | "green";
+import { type SlotType } from "./index";
+
+export type ToastStatus = Pick<SlotType, "category">["category"];
 export type Toast = {
   text: string;
   status: ToastStatus;

@@ -15,7 +15,7 @@ import Spinner from "./Spinner.vue";
 import { useToasterStore } from "../store/useToasterStore";
 import Input from "./Input.vue";
 import Dropdown from "./Dropdown.vue";
-import { type DropdownItems } from "../types";
+import { type DataType, type DropdownItems } from "../types";
 import { categoryOptions } from "../constants/categoryOptions";
 import { VPagination } from "vuetify/components";
 
@@ -103,7 +103,7 @@ const HandlePrevPage = () => {
       </h2>
       <SlotWrapper
         :slots="visibleSlots[1]"
-        :data="data"
+        :data="data as DataType | null"
         :searchTerm="searchTerm"
         :limit="limitOnCategory"
       />
